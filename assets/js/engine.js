@@ -760,7 +760,7 @@
     node.querySelector("[data-clearcodes]")?.addEventListener("click", () => { saveFriends([]); renderResults(); });
     node.querySelector("[data-print]").addEventListener("click", () => window.print());
     node.querySelector("[data-copy]").addEventListener("click", async () => {
-      const lines = [headline, "", ...D.dimOrder.map((d) => `${D.dims[d].name}: ${sc[d]} (${band(sc[d]).label})`), "", `Answer quality: ${r.confidence.label}`, "Self-reflection only, not a diagnosis. Honest Mirror."];
+      const lines = [headline, "", ...D.dimOrder.map((d) => `${D.dims[d].name}: ${sc[d]} (${band(sc[d]).label})`), "", `Answer quality: ${r.confidence.label}`, "Self-reflection only, not a diagnosis. Made by SirStig."];
       try { await navigator.clipboard.writeText(lines.join("\n")); window.HM.toast("Summary copied"); } catch (_) { window.HM.toast("Couldn't copy"); }
     });
     node.querySelector("[data-restart]").addEventListener("click", () => {

@@ -455,6 +455,7 @@ input[type="range"]::-moz-range-thumb { width: 24px; height: 24px; border-radius
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
 .disclaimer-strip { font-size: .86rem; color: var(--muted); text-align: center; padding: 14px 20px; border-top: 1px solid var(--line); }
+.disclaimer-strip a { color: inherit; }
 
 @media print {
   .site-header, .site-footer, .progress-shell, .no-print, .disclaimer-strip { display: none !important; }

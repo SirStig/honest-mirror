@@ -1,5 +1,7 @@
 # Honest Mirror
 
+Made by [SirStig](https://github.com/SirStig).
+
 A free, private self-reflection site for people who keep being called a narcissist, manipulative, controlling, or selfish, and want something more careful than a 16-question quiz.
 
 It is not a diagnosis. Only a licensed mental health professional can diagnose a personality disorder. The site says that plainly, on every page that could be mistaken for a verdict.
