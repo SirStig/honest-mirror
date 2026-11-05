@@ -6,7 +6,7 @@ A free, private self-reflection site for people who keep being called a narcissi
 
 It is not a diagnosis. Only a licensed mental health professional can diagnose a personality disorder. The site says that plainly, on every page that could be mistaken for a verdict.
 
-The live site is [https://sirstig.github.io/Narc/](https://sirstig.github.io/Narc/).
+The live site is [https://sirstig.github.io/honest-mirror/](https://sirstig.github.io/honest-mirror/).
 
 ## What it includes
 
@@ -28,4 +28,4 @@ To preview locally, from this folder:
 python3 -m http.server 8765
 ```
 
-Then open `http://127.0.0.1:8765/`. The canonical URLs assume the GitHub Pages project path `/Narc/`, so a local preview is closest when the folder is served from a parent directory as `/Narc/`.
+Then open `http://127.0.0.1:8765/`. The canonical URLs assume the GitHub Pages project path `/honest-mirror/`, so a local preview is closest when the folder is served from a parent directory as `/honest-mirror/`.

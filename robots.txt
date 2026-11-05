@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sirstig.github.io/Narc/sitemap.xml
+Sitemap: https://sirstig.github.io/honest-mirror/sitemap.xml

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://sirstig.github.io/Narc/</loc><lastmod>2026-11-04</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://sirstig.github.io/Narc/test/</loc><lastmod>2026-11-04</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://sirstig.github.io/Narc/learn/</loc><lastmod>2026-11-04</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://sirstig.github.io/Narc/about/</loc><lastmod>2026-11-04</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://sirstig.github.io/honest-mirror/</loc><lastmod>2026-11-04</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://sirstig.github.io/honest-mirror/test/</loc><lastmod>2026-11-04</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://sirstig.github.io/honest-mirror/learn/</loc><lastmod>2026-11-04</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://sirstig.github.io/honest-mirror/about/</loc><lastmod>2026-11-04</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
 </urlset>
