@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..600,0..100&family=Inter:wght@400;500;600&display=swap">
+<style>
+  html, body { margin: 0; }
+  body { width: 1200px; height: 630px; overflow: hidden; background: #f7f4ee; font-family: Inter, system-ui, sans-serif; position: relative; }
+  .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: .5; }
+  .wrap { position: absolute; inset: 0; display: grid; grid-template-columns: 1.3fr .7fr; align-items: center; padding: 0 80px; gap: 40px; }
+  .eyebrow { font-size: 22px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #2f6f68; margin-bottom: 22px; }
+  h1 { font-family: Fraunces, Georgia, serif; font-weight: 500; font-size: 92px; line-height: 1.02; letter-spacing: -.02em; color: #1f1c24; margin: 0 0 24px; font-variation-settings: "SOFT" 50, "opsz" 144; }
+  h1 em { color: #2f6f68; }
+  p { font-size: 30px; color: #4a4552; margin: 0; line-height: 1.35; }
+  .brand { position: absolute; left: 80px; bottom: 48px; font-family: Fraunces, Georgia, serif; font-size: 30px; color: #1f1c24; }
+  body.icon { width: 512px; height: 512px; background: #1f1c24; display: grid; place-items: center; }
+  body.icon > :not(.icon-art) { display: none; }
+  .icon-art { display: none; }
+  body.icon .icon-art { display: block; }
+</style>
+<script>if (location.hash === "#icon") document.documentElement.classList.add("i");</script>
+</head>
+<body>
+<script>if (location.hash === "#icon") document.body.className = "icon";</script>
+<div class="blob" style="width:600px;height:600px;background:#a998dc;top:-200px;right:-160px"></div>
+<div class="blob" style="width:480px;height:480px;background:#e9a27a;bottom:-240px;left:-120px"></div>
+<div class="wrap">
+  <div>
+    <div class="eyebrow">Free · Private · Not a diagnosis</div>
+    <h1>Am I a <em>narcissist?</em></h1>
+    <p>An honest, in-depth self-reflection test that's built to be hard to fake.</p>
+  </div>
+  <svg viewBox="0 0 400 400" width="380" height="380">
+    <defs>
+      <linearGradient id="m1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a998dc"/><stop offset=".55" stop-color="#8fbcd8"/><stop offset="1" stop-color="#7cc5b9"/></linearGradient>
+      <linearGradient id="m2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9a27a"/><stop offset="1" stop-color="#d98a9a"/></linearGradient>
+      <clipPath id="oval"><ellipse cx="200" cy="190" rx="118" ry="152"/></clipPath>
+    </defs>
+    <ellipse cx="200" cy="190" rx="132" ry="166" fill="none" stroke="url(#m1)" stroke-width="10"/>
+    <g clip-path="url(#oval)">
+      <rect x="60" y="30" width="280" height="320" fill="url(#m1)" opacity=".22"/>
+      <circle cx="200" cy="168" r="44" fill="url(#m1)" opacity=".7"/>
+      <path d="M110 360c10-72 46-112 90-112s80 40 90 112z" fill="url(#m1)" opacity=".7"/>
+      <circle cx="214" cy="160" r="44" fill="url(#m2)" opacity=".35"/>
+      <path d="M124 360c10-72 46-112 90-112s80 40 90 112z" fill="url(#m2)" opacity=".3"/>
+    </g>
+    <rect x="186" y="356" width="28" height="30" rx="8" fill="url(#m1)"/>
+  </svg>
+</div>
+<div class="brand">Honest Mirror · sirstig.github.io/Narc</div>
+<svg class="icon-art" viewBox="0 0 32 32" width="512" height="512"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a998dc"/><stop offset="1" stop-color="#7cc5b9"/></linearGradient></defs><rect width="32" height="32" fill="#1f1c24"/><ellipse cx="16" cy="16" rx="9" ry="11.5" fill="none" stroke="url(#g)" stroke-width="2.6"/><ellipse cx="16" cy="16" rx="5.8" ry="8.3" fill="url(#g)" opacity=".5"/><path d="M12.4 11c1.3-1.6 3-2.3 4.8-2" stroke="#fff" stroke-width="1.7" stroke-linecap="round" fill="none"/></svg>
+</body>
+</html>
