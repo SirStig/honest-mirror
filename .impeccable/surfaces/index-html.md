@@ -9,14 +9,14 @@ Scope: whole site. Home is Persuade; test and results are Operate; guide and met
 
 ## Direction contract
 
-THESIS: Plain statements on black, the way a good transit sign speaks. Refuses the wellness-quiz page: soft gradients, illustration, eyebrow labels, icon cards, reassurance.
+THESIS: A quiet room at night with a mirror in it. Calm and humane for someone who is hurting, and still serious. Refuses the wellness-quiz page, the comic-like loud page, and the clean-but-cold page; the owner rejected the last two.
 
-OWN-WORLD: Near-black ground, off-white type, one signal yellow. One grotesque in heavy weights, hairline rules, small radii, no shadows, no gradients, no illustration. Yellow means: act here, or you are here, or the limits.
+OWN-WORLD: Deep night blue-green ground, warm ivory type, one soft sand accent. Light Spectral serif for headlines and questions, Schibsted Grotesk for everything else. Hairline rules, soft 10px corners, slow transitions, no illustration beyond the mirror.
 
-STORY: The visitor reads what it is in one line, sees it checks its own answers, sees the limits stated as loudly as the claims, and starts.
+STORY: The visitor feels recognised, learns it is private and checks its own answers, sees the limits stated plainly, and starts when ready.
 
-FIRST VIEWPORT: Oversized left-aligned headline with the question in yellow, one line of explanation, Start button, a one-line facts row, then the nine-stop line along the foot.
+FIRST VIEWPORT: Serif headline left with the question in sand, one humane line, Start button, a facts line. An arched mirror catching slow light on the right; hidden on phones.
 
-FORM: Transit signage discipline, candidate 1 of my re-rolled list, chosen by the user's delegation over the assigned candidate. Seed key 37d87ade. Signature: the nine-stop line is the real progress indicator in the test.
+FORM: Reworked from transit-signage discipline after owner feedback (seed key 37d87ade). Signature: the mirror's slow light, and the nine-stop line as the real progress indicator in the test.
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
