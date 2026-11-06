@@ -5,20 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Page not found · Honest Mirror</title>
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#f7f4ee">
+  <meta name="theme-color" content="#0f1a1e">
+  <meta name="color-scheme" content="dark light">
   <link rel="icon" href="/honest-mirror/assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..600,0..100&family=Inter:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="/honest-mirror/assets/css/style.css">
-  <script>(function(){try{var t=localStorage.getItem("hm-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+  <script>(function(){try{document.documentElement.dataset.theme=localStorage.getItem("hm-theme")||"dark";}catch(e){}})();</script>
 </head>
 <body>
-  <main class="narrow" style="min-height:100vh;display:grid;place-content:center;text-align:center">
-    <p class="eyebrow" style="justify-content:center">404</p>
-    <h1>Nothing to see here.</h1>
-    <p style="color:var(--ink-2)">This page doesn't exist, or it may have moved.</p>
-    <p style="margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><a class="btn" href="/honest-mirror/">Go home</a><a class="btn ghost" href="/honest-mirror/test/">Take the test</a></p>
+  <main class="wrap not-found">
+    <h1>Page not found.</h1>
+    <p>This page doesn't exist, or it has moved.</p>
+    <div class="cta"><a class="btn" href="/honest-mirror/">Go to the home page</a><a href="/honest-mirror/test/">Start the test</a></div>
   </main>
 </body>
 </html>

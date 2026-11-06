@@ -8,9 +8,9 @@
   const progressBar = document.getElementById("progress-bar");
   const progressMod = document.getElementById("progress-mod");
   const progressCount = document.getElementById("progress-count");
+  const progressStops = document.getElementById("progress-stops");
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const SHORT = { grand: "Grandiosity", ent: "Entitlement", vuln: "Fragile worth", emp: "Empathy gap", acct: "Defensiveness", manip: "Manipulation", ctrl: "Control", self: "Self-focus" };
   const LIKERT = ["Strongly disagree", "Disagree", "Not sure", "Agree", "Strongly agree"];
   const FREQ = ["Never", "Once or twice", "A few times", "Often"];
   const FAM = ["Never heard of it", "Heard the name", "Could explain a little", "Know it well"];
@@ -54,33 +54,6 @@
   const isQuestion = (s) => !["welcome", "intro", "results"].includes(s.type);
   const answerable = steps.filter(isQuestion).length;
 
-  /* ---------- Art ---------- */
-  const palette = ["#a998dc", "#e9a27a", "#8fbcd8", "#d98a9a", "#7cc5b9", "#e8c27a"];
-  const defs = (id, a, b) => `<defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs>`;
-  const ART = {
-    self: () => `<svg viewBox="0 0 160 160" aria-hidden="true">${defs("ga", "#a998dc", "#7cc5b9")}<circle cx="80" cy="80" r="70" fill="url(#ga)" opacity=".18"/><ellipse cx="80" cy="78" rx="40" ry="54" fill="none" stroke="url(#ga)" stroke-width="5"/><ellipse cx="80" cy="78" rx="30" ry="44" fill="url(#ga)" opacity=".35"/><path d="M64 52c6-8 16-12 26-10" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none" opacity=".8"/><rect x="74" y="132" width="12" height="16" rx="4" fill="url(#ga)"/></svg>`,
-    self2: () => `<svg viewBox="0 0 160 160" aria-hidden="true">${defs("gb", "#e9a27a", "#a998dc")}<circle cx="80" cy="80" r="70" fill="url(#gb)" opacity=".18"/><ellipse cx="68" cy="80" rx="34" ry="48" fill="none" stroke="url(#gb)" stroke-width="5"/><ellipse cx="94" cy="80" rx="34" ry="48" fill="url(#gb)" opacity=".3"/><path d="M54 58c5-7 13-10 21-9" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none" opacity=".8"/></svg>`,
-    moments: () => `<svg viewBox="0 0 160 160" aria-hidden="true">${defs("gc", "#7cc5b9", "#8fbcd8")}<circle cx="80" cy="80" r="70" fill="url(#gc)" opacity=".16"/><rect x="22" y="36" width="82" height="54" rx="20" fill="url(#gc)"/><path d="M42 88l-6 18 20-14z" fill="#7cc5b9"/><rect x="58" y="76" width="82" height="50" rx="20" fill="#e9a27a" opacity=".9"/><path d="M122 124l8 16-22-12z" fill="#e9a27a" opacity=".9"/><circle cx="84" cy="101" r="4" fill="#fff"/><circle cx="99" cy="101" r="4" fill="#fff"/><circle cx="114" cy="101" r="4" fill="#fff"/></svg>`,
-    pairs: () => `<svg viewBox="0 0 160 160" aria-hidden="true">${defs("gd", "#a998dc", "#d98a9a")}<circle cx="80" cy="80" r="70" fill="url(#gd)" opacity=".14"/><circle cx="56" cy="80" r="34" fill="url(#gd)"/><circle cx="104" cy="80" r="34" fill="#8fbcd8" opacity=".85"/><path d="M80 52a34 34 0 0 1 0 56a34 34 0 0 1 0-56z" fill="#fff" opacity=".55"/></svg>`,
-    reading: () => `<svg viewBox="0 0 160 160" aria-hidden="true">${defs("ge", "#d98a9a", "#e9a27a")}<circle cx="80" cy="80" r="70" fill="url(#ge)" opacity=".16"/><circle cx="80" cy="80" r="52" fill="none" stroke="url(#ge)" stroke-width="3" opacity=".5"/><circle cx="80" cy="80" r="36" fill="url(#ge)" opacity=".85"/><path d="M62 74q6-6 12 0M86 74q6-6 12 0" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M66 92q14 10 28 0" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none"/></svg>`,
-    month: () => { let d = ""; for (let r = 0; r < 5; r++) for (let c = 0; c < 6; c++) { const on = (r * 6 + c) % 4 === 1 || (r * 6 + c) % 7 === 3; d += `<rect x="${30 + c * 17}" y="${46 + r * 17}" width="12" height="12" rx="4" fill="${on ? "#7cc5b9" : "#8fbcd8"}" opacity="${on ? 1 : 0.3}"/>`; } return `<svg viewBox="0 0 160 160" aria-hidden="true"><circle cx="80" cy="80" r="70" fill="#8fbcd8" opacity=".14"/><rect x="22" y="28" width="116" height="10" rx="5" fill="#a998dc" opacity=".7"/>${d}</svg>`; },
-    compare: () => `<svg viewBox="0 0 160 160" aria-hidden="true">${defs("gf", "#7cc5b9", "#a998dc")}<circle cx="80" cy="80" r="70" fill="url(#gf)" opacity=".14"/><rect x="34" y="84" width="16" height="40" rx="6" fill="#8fbcd8" opacity=".6"/><rect x="56" y="64" width="16" height="60" rx="6" fill="#8fbcd8" opacity=".6"/><rect x="78" y="40" width="16" height="84" rx="6" fill="url(#gf)"/><rect x="100" y="70" width="16" height="54" rx="6" fill="#8fbcd8" opacity=".6"/><circle cx="86" cy="28" r="6" fill="#e9a27a"/></svg>`,
-    knowledge: () => `<svg viewBox="0 0 160 160" aria-hidden="true">${defs("gg", "#e8c27a", "#e9a27a")}<circle cx="80" cy="80" r="70" fill="url(#gg)" opacity=".16"/><path d="M28 50q26-10 52 4v66q-26-14-52-4z" fill="url(#gg)"/><path d="M132 50q-26-10-52 4v66q26-14 52-4z" fill="#a998dc" opacity=".85"/><path d="M40 64q14-4 28 2M40 78q14-4 28 2M92 66q14-6 28-2M92 80q14-6 28-2" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none" opacity=".8"/></svg>`,
-    quick: () => `<svg viewBox="0 0 160 160" aria-hidden="true">${defs("gh", "#e9a27a", "#d98a9a")}<circle cx="80" cy="80" r="70" fill="url(#gh)" opacity=".14"/><circle cx="80" cy="84" r="46" fill="none" stroke="#8fbcd8" stroke-width="8" opacity=".35"/><path d="M80 38a46 46 0 0 1 44 58" fill="none" stroke="url(#gh)" stroke-width="8" stroke-linecap="round"/><path d="M86 56l-18 32h14l-6 24 22-34h-14z" fill="url(#gh)"/></svg>`
-  };
-
-  const scene = (key) => {
-    const r = rng(hash(key));
-    const pick = () => palette[Math.floor(r() * palette.length)];
-    const c1 = pick(); let c2 = pick(); if (c2 === c1) c2 = palette[(palette.indexOf(c1) + 2) % palette.length];
-    const bg = pick();
-    const x1 = 140 + r() * 80, x2 = 330 + r() * 100;
-    const lean = (r() - 0.5) * 12;
-    const blobs = Array.from({ length: 4 }, () => `<circle cx="${(r() * 600).toFixed(0)}" cy="${(r() * 120).toFixed(0)}" r="${(20 + r() * 60).toFixed(0)}" fill="${pick()}" opacity=".18"/>`).join("");
-    const figure = (x, c, s, flip) => `<g transform="translate(${x.toFixed(0)} 0) rotate(${(flip ? -lean : lean).toFixed(1)} 0 110)"><circle cx="0" cy="${(46 * s + 12).toFixed(0)}" r="${(16 * s).toFixed(1)}" fill="${c}"/><rect x="${(-22 * s).toFixed(1)}" y="${(66 * s + 10).toFixed(1)}" width="${(44 * s).toFixed(1)}" height="${(70 * s).toFixed(1)}" rx="${(20 * s).toFixed(1)}" fill="${c}" opacity=".85"/></g>`;
-    return `<svg viewBox="0 0 600 110" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="600" height="110" fill="${bg}" opacity=".12"/>${blobs}${figure(x1, c1, 1, false)}${figure(x2, c2, 0.92, true)}<rect x="0" y="100" width="600" height="10" fill="${bg}" opacity=".25"/></svg>`;
-  };
-
   /* ---------- Speech ---------- */
   const canSpeak = "speechSynthesis" in window;
   const speak = (text) => {
@@ -121,13 +94,19 @@
     window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
   };
 
+  const n = D.modules.length;
+  progressStops.innerHTML = D.modules.map((_, i) => `<li style="left:${(i / n) * 100}%"></li>`).join("");
   const updateProgress = () => {
     const s = steps[st.idx];
     if (!s || !s.m) { progressShell.hidden = true; return; }
     progressShell.hidden = false;
     const done = steps.slice(0, st.idx).filter(isQuestion).length;
-    progressBar.style.width = `${(done / answerable) * 100}%`;
-    progressMod.textContent = `Part ${s.mi + 1} of ${D.modules.length} · ${s.m.title}`;
+    progressBar.style.width = `${((s.mi + (s.ii || 0) / s.m.items.length) / n) * 100}%`;
+    [...progressStops.children].forEach((li, i) => {
+      li.classList.toggle("done", i < s.mi);
+      li.classList.toggle("here", i === s.mi);
+    });
+    progressMod.textContent = `Part ${s.mi + 1} of ${n}: ${s.m.title}`;
     progressCount.textContent = `${Math.round((done / answerable) * 100)}%`;
   };
 
@@ -171,25 +150,24 @@
     const finished = !!st.finishedAt;
     const inProgress = !finished && resumeAt > 0 && answered > 0;
     const node = el(`<div class="screen">
-      <p class="eyebrow">Before you begin</p>
-      <h1 class="q-text" tabindex="-1" data-focus style="font-size:clamp(1.9rem,4vw,2.6rem)">A few honest things first.</h1>
-      <ul class="list-check" style="margin-bottom:28px">
-        <li><strong>This is not a diagnosis.</strong> Only a licensed mental health professional can diagnose a personality disorder, and they'd use hours of interviews, not a website.</li>
-        <li><strong>Nothing leaves your device.</strong> Your answers are saved only in this browser so you can pause and come back. There's no account, no tracking, and no server.</li>
-        <li><strong>It takes about 15 to 20 minutes.</strong> There are nine short parts, each designed to make honest answers easier than flattering ones.</li>
-        <li><strong>Answer as you are, not as you wish you were.</strong> Everyone has some of every trait here. The goal is understanding, not a verdict.</li>
+      <h1 class="screen-title" tabindex="-1" data-focus>Before you start</h1>
+      <ul class="rows">
+        <li><h3>This is not a diagnosis.</h3><p>Only a licensed mental health professional can diagnose a personality disorder.</p></li>
+        <li><h3>Nothing leaves your device.</h3><p>Answers are saved only in this browser, so you can pause and come back. No account and no tracking.</p></li>
+        <li><h3>It takes 15 to 20 minutes.</h3><p>Nine short parts.</p></li>
+        <li><h3>Answer as you are, not as you wish you were.</h3><p>Everyone has some of every trait here.</p></li>
       </ul>
-      ${finished ? `<div class="callout" style="margin-bottom:22px"><p>You've already finished. You can view your results again or start fresh.</p><div class="row" style="margin-top:14px"><button class="btn small" data-view>View my results</button><button class="btn small ghost" data-restart>Start over</button></div></div>` : ""}
-      ${inProgress ? `<div class="callout" style="margin-bottom:22px"><p>You have a test in progress (${Math.min(99, Math.round((answered / answerable) * 100))}% answered).</p><div class="row" style="margin-top:14px"><button class="btn small" data-continue>Continue where I left off</button><button class="btn small ghost" data-restart>Start over</button></div></div>` : ""}
-      <h2 style="font-size:1.3rem;font-family:var(--font-sans);font-weight:600;letter-spacing:0;margin-top:8px">What brings you here today?</h2>
-      <p class="q-sub" style="margin:0 0 16px">Optional. It only changes which notes you see on your results.</p>
+      ${finished ? `<div class="callout"><p>You've already finished. You can view your results or start over.</p><div class="row" style="margin-top:14px"><button class="btn small" data-view>View my results</button><button class="btn small ghost" data-restart>Start over</button></div></div>` : ""}
+      ${inProgress ? `<div class="callout"><p>You have a test in progress (${Math.min(99, Math.round((answered / answerable) * 100))}% answered).</p><div class="row" style="margin-top:14px"><button class="btn small" data-continue>Continue where I left off</button><button class="btn small ghost" data-restart>Start over</button></div></div>` : ""}
+      <h2 class="sub-title">What brings you here?</h2>
+      <p class="q-sub plain">Optional. It only changes which notes you see in your results.</p>
       <div class="options" role="radiogroup">${REASONS.map(([k, t], i) => `<button type="button" class="opt" role="radio" aria-checked="${st.reason === k}" data-opt data-reason="${k}"><span class="key">${i + 1}</span>${esc(t)}</button>`).join("")}</div>
       <div id="reason-note"></div>
-      <div class="q-actions"><span></span><button class="btn" data-start>${inProgress || finished ? "Start fresh" : "I understand. Let's begin"}</button></div>
+      <div class="q-actions"><span></span><button class="btn" data-start>${inProgress || finished ? "Start fresh" : "Start the test"}</button></div>
     </div>`);
     const note = node.querySelector("#reason-note");
     const showNote = () => {
-      note.innerHTML = st.reason === "other" ? `<div class="callout warm" style="margin-top:16px"><p>This test is built for looking at <em>yourself</em>. Answering it for someone else won't give you meaningful results. If you're trying to understand someone in your life, our <a href="../learn/">guide</a> can help. If you feel unsafe, please reach out to a support line like the <a href="https://www.thehotline.org/" rel="noopener" target="_blank">National Domestic Violence Hotline</a>.</p></div>` : "";
+      note.innerHTML = st.reason === "other" ? `<div class="callout alert"><p>This test only works for looking at yourself. Answering for someone else won't give meaningful results. To make sense of someone in your life, start with the <a href="../learn/">guide</a>. If you feel unsafe, the <a href="https://www.thehotline.org/" rel="noopener" target="_blank">National Domestic Violence Hotline</a> is free and confidential.</p></div>` : "";
     };
     showNote();
     node.querySelectorAll("[data-reason]").forEach((b) => b.addEventListener("click", () => {
@@ -211,14 +189,11 @@
     const count = m.type === "familiarity" ? "16 terms" : m.type === "quick" ? "16 words" : `${m.items.length} questions`;
     const mins = { likert: 3, scenario: 3, pair: 2, reading: 2, frequency: 2, slider: 1, familiarity: 1, quick: 1 }[m.type];
     const node = el(`<div class="screen module-intro">
-      <div class="art">${ART[m.art]()}</div>
-      <p class="eyebrow" style="justify-content:center">Part ${s.mi + 1} of ${D.modules.length}</p>
-      <h2 tabindex="-1" data-focus>${esc(m.title)}</h2>
-      <p>${esc(m.intro)}</p>
-      <div class="meta"><span>${count}</span><span>·</span><span>About ${mins} min</span></div>
-      <div class="why"><strong>Why this part?</strong> ${esc(m.why)}</div>
-      <div class="row" style="justify-content:center"><button class="btn" data-go>Start</button></div>
-      <div style="margin-top:18px;display:flex;justify-content:center">${backBtn()}</div>
+      <p class="meta">Part ${s.mi + 1} of ${D.modules.length}. ${count}, about ${mins} min.</p>
+      <h2 class="screen-title" tabindex="-1" data-focus>${esc(m.title)}</h2>
+      <p class="body">${esc(m.intro)}</p>
+      <p class="why">${esc(m.why)}</p>
+      <div class="actions"><button class="btn" data-go>Start this part</button>${backBtn()}</div>
     </div>`);
     node.querySelector("[data-go]").addEventListener("click", next);
     wireBack(node);
@@ -234,7 +209,7 @@
     const cur = st.ans[it.id];
     const node = el(`<div class="screen">
       ${kicker(s)}
-      ${prompt ? `<p class="q-sub" style="margin:0 0 8px">${prompt}</p>` : ""}
+      ${prompt ? `<p class="q-sub lead">${prompt}</p>` : ""}
       <h2 class="q-text" tabindex="-1" data-focus>${esc(it.t)}</h2>
       <div class="likert ${cls}" role="radiogroup" aria-label="Your answer">
         ${labels.map((l, i) => { const v = isFreq ? i : i + 1; return `<button type="button" class="opt" role="radio" aria-checked="${cur === v}" data-opt data-v="${v}"><span class="dot"></span>${l}</button>`; }).join("")}
@@ -260,8 +235,8 @@
     const letters = ["a", "b", "c", "d"];
     const node = el(`<div class="screen">
       ${kicker(s)}
-      <div class="story"><div class="story-art">${scene(it.id + it.art)}</div><p>${esc(it.story)}</p></div>
-      <h2 class="q-text" tabindex="-1" data-focus style="font-size:clamp(1.25rem,2.6vw,1.6rem);margin-bottom:18px">${esc(q)}</h2>
+      <div class="story"><p>${esc(it.story)}</p></div>
+      <h2 class="q-text minor" tabindex="-1" data-focus>${esc(q)}</h2>
       <div class="options" role="radiogroup">
         ${order.map((oi, k) => `<button type="button" class="opt" role="radio" aria-checked="${cur === oi}" data-opt data-v="${oi}"><span class="key">${letters[k].toUpperCase()}</span>${esc(isReading ? it.opts[oi] : it.opts[oi].t)}</button>`).join("")}
       </div>
@@ -344,8 +319,8 @@
     const node = el(`<div class="screen">
       <div class="q-kicker"><span>${esc(s.m.title)}</span></div>
       <h2 class="q-text" tabindex="-1" data-focus>How familiar are you with each of these?</h2>
-      <div class="options" style="gap:14px">
-        ${terms.map((t) => `<div class="story" style="padding:16px 18px;margin:0" data-term="${esc(t)}"><p style="font-weight:600;color:var(--ink);margin:0 0 10px">${esc(t)}</p><div class="fam-scale" role="radiogroup" aria-label="${esc(t)}">${FAM.map((l, v) => `<button type="button" class="opt" role="radio" aria-checked="${cur[t] === v}" data-v="${v}">${l}</button>`).join("")}</div></div>`).join("")}
+      <div class="fam-list">
+        ${terms.map((t) => `<div class="fam-row" data-term="${esc(t)}"><p>${esc(t)}</p><div class="fam-scale" role="radiogroup" aria-label="${esc(t)}">${FAM.map((l, v) => `<button type="button" class="opt" role="radio" aria-checked="${cur[t] === v}" data-v="${v}">${l}</button>`).join("")}</div></div>`).join("")}
       </div>
       <div class="q-actions">${backBtn()}<button class="btn" data-next ${terms.every((t) => cur[t] != null) ? "" : "disabled"}>Next</button></div>
     </div>`);
@@ -556,10 +531,10 @@
     if (timeouts > 5) flags.push({ warn: true, title: "Several quick reactions timed out", text: "That part had less data than usual, so it counted for less." });
 
     const confidence = reliabilityWarns === 0
-      ? { label: "Good", color: "var(--accent)", text: "Your answers passed our consistency and candor checks." }
+      ? { label: "Good", color: "var(--ink)", text: "Your answers passed our consistency and candor checks." }
       : reliabilityWarns === 1
-        ? { label: "Fair", color: "var(--peach)", text: "One of our checks raised a question. See the notes below." }
-        : { label: "Low", color: "var(--rose)", text: "Several checks raised questions. Treat these results loosely." };
+        ? { label: "Fair", color: "var(--warn)", text: "One of our checks raised a question. See the notes below." }
+        : { label: "Low", color: "var(--err)", text: "Several checks raised questions. Treat these results loosely." };
 
     notable.sort((a, b) => b.weight - a.weight);
     const reading = mod("reading").items;
@@ -591,18 +566,6 @@
       for (const [d, w] of Object.entries(it.w)) { acc[d].s += x * w; acc[d].w += w; }
     });
     return Object.fromEntries(D.dimOrder.map((d) => [d, Math.round((acc[d].s / acc[d].w) * 100)]));
-  };
-
-  /* ---------- Radar ---------- */
-  const radar = (scores, other) => {
-    const n = D.dimOrder.length, cx = 230, cy = 210, R = 150;
-    const pt = (i, v) => { const a = (Math.PI * 2 * i) / n - Math.PI / 2; return [cx + Math.cos(a) * R * v, cy + Math.sin(a) * R * v].map((z) => z.toFixed(1)); };
-    const rings = [0.25, 0.5, 0.75, 1].map((r) => `<polygon class="grid-line" points="${D.dimOrder.map((_, i) => pt(i, r).join(",")).join(" ")}"/>`).join("");
-    const axes = D.dimOrder.map((_, i) => { const [x, y] = pt(i, 1); return `<line class="axis" x1="${cx}" y1="${cy}" x2="${x}" y2="${y}"/>`; }).join("");
-    const labels = D.dimOrder.map((d, i) => { const [x, y] = pt(i, 1.12).map(Number); const anchor = Math.abs(x - cx) < 10 ? "middle" : x > cx ? "start" : "end"; return `<text x="${x}" y="${y + 4}" text-anchor="${anchor}">${SHORT[d]}</text>`; }).join("");
-    const poly = (sc, cls) => `<polygon class="area ${cls} draw" points="${D.dimOrder.map((d, i) => pt(i, Math.max(0.03, sc[d] / 100)).join(",")).join(" ")}"/>`;
-    const dots = D.dimOrder.map((d, i) => { const [x, y] = pt(i, Math.max(0.03, scores[d] / 100)); return `<circle class="pt draw" cx="${x}" cy="${y}" r="3.5"/>`; }).join("");
-    return `<svg class="radar" viewBox="0 0 460 420" role="img" aria-label="Chart of your eight trait scores">${rings}${axes}${other ? poly(other, "other") : ""}${poly(scores, "")}${dots}${labels}</svg>`;
   };
 
   /* ---------- Results ---------- */
@@ -640,9 +603,9 @@
 
     const otherWords = ["manip", "ctrl", "self"].filter((d) => sc[d] >= 42);
     const reasonNote = st.reason === "called"
-      ? `<div class="callout warm" style="margin-top:22px"><h3>About being called this</h3><p>When a word like “narcissist” keeps coming up, it usually means one of three things. It may be pointing at a real pattern.${top.length ? ` Your highest areas here were <strong>${top.map((d) => D.dims[d].name.toLowerCase()).join("</strong>, <strong>")}</strong>, which are good places to start.` : ""} It may be a loose way of saying “you hurt me and I don't feel heard.” Or it may be used against you in a way that isn't fair. More than one can be true at once. Our <a href="../learn/#called">guide on being called a narcissist</a> walks through how to tell the difference.</p></div>`
+      ? `<div class="callout"><h3>About being called this</h3><p>When a word like “narcissist” keeps coming up, it usually means one of three things. It may be pointing at a real pattern.${top.length ? ` Your highest areas here were <strong>${top.map((d) => D.dims[d].name.toLowerCase()).join("</strong>, <strong>")}</strong>, which are good places to start.` : ""} It may be a loose way of saying “you hurt me and I don't feel heard.” Or it may be used against you in a way that isn't fair. More than one can be true at once. The <a href="../learn/#called">guide</a> covers how to tell the difference.</p></div>`
       : st.reason === "worried"
-        ? `<div class="callout" style="margin-top:22px"><h3>You came here worried about how you treat people</h3><p>Hold on to that concern. Caring about your impact is where changing it starts, whatever your scores say. The “what to try” notes under each trait are small, practical places to begin.</p></div>`
+        ? `<div class="callout"><h3>You came here worried about how you treat people</h3><p>Caring about your impact is where changing it starts, whatever your scores say. The “what to try” notes under each trait are practical places to begin.</p></div>`
         : "";
 
     const dimCards = D.dimOrder.map((d) => {
@@ -658,72 +621,65 @@
       return `<article class="dim">
         <div class="dim-head"><h3>${info.name}</h3><span class="band-tag band-${b.i}">${b.label} · ${v}</span></div>
         <div class="aka">${esc(info.aka)}</div>
-        <div class="meter" aria-hidden="true"><span class="pin" data-left="${v}"></span>${fv != null ? `<span class="pin other" data-left="${fv}" title="People who know you"></span>` : ""}</div>
+        <div class="meter" aria-hidden="true"><span class="tick" style="left:22%"></span><span class="tick" style="left:42%"></span><span class="tick" style="left:60%"></span><span class="pin" data-left="${v}"></span>${fv != null ? `<span class="pin other" data-left="${fv}" title="People who know you"></span>` : ""}</div>
         <p>${body}</p>
         ${gap}
         <details><summary>What this isn't, and what to try</summary><p>${esc(info.notIt)}</p><ul>${info.tips.map((t) => `<li>${esc(t)}</li>`).join("")}</ul></details>
       </article>`;
     }).join("");
 
-    const notable = r.notable.length ? `<h2>Answers worth sitting with</h2><p class="intro">These specific answers pulled your results up the most. They aren't “wrong.” They're just the clearest windows into the pattern.</p><div class="validity">${r.notable.map((n) => `<div class="flag"><div class="fi" style="background:var(--surface-2);font-family:var(--font-serif);font-size:1.3rem">“</div><div><h4>${esc(n.q)}</h4><p>You answered: <strong>${esc(n.a)}</strong></p></div></div>`).join("")}</div>` : "";
+    const notable = r.notable.length ? `<h2>The answers that raised your scores most</h2><p class="intro">They aren't wrong answers. They're the clearest view of the pattern.</p><div class="flags">${r.notable.map((n) => `<div class="flag plain"><div><h4>${esc(n.q)}</h4><p>You answered: <strong>${esc(n.a)}</strong></p></div></div>`).join("")}</div>` : "";
 
-    const friendList = friends.length ? `<p style="margin-top:16px;color:var(--ink-2)">${friends.length} ${friends.length === 1 ? "person has" : "people have"} added their view (${friends.map((f) => esc(D.relations[f.rel] || "Other")).join(", ")}). On the chart, their average is the dashed orange shape.</p>` : "";
+    const friendList = friends.length ? `<p class="link-note">${friends.length} ${friends.length === 1 ? "person has" : "people have"} added their view (${friends.map((f) => esc(D.relations[f.rel] || "Other")).join(", ")}). Their average is the hollow marker on each trait.</p>` : "";
 
     const node = el(`<div class="screen wide results">
       <div class="result-hero">
-        <p class="eyebrow" style="justify-content:center">Your reflection</p>
-        <h1 tabindex="-1" data-focus style="font-size:clamp(2rem,4.4vw,3.1rem);max-width:22ch;margin-inline:auto">${headline}</h1>
+        <h1 tabindex="-1" data-focus>${headline}</h1>
         <div class="confidence"><i style="background:${r.confidence.color}"></i><span>Answer quality: <strong>${r.confidence.label}</strong>. ${r.confidence.text}</span></div>
         <p>${summary}</p>
         ${style ? `<p>${style}</p>` : ""}
-        ${otherWords.length ? `<p>Beyond narcissism itself, <strong>${otherWords.map((d) => D.dims[d].name.toLowerCase()).join("</strong> and <strong>")}</strong> also came through. These overlap with narcissism but aren't the same thing. Plenty of people struggle with them without being narcissistic at all.</p>` : ""}
+        ${otherWords.length ? `<p>Beyond narcissism itself, <strong>${otherWords.map((d) => D.dims[d].name.toLowerCase()).join("</strong> and <strong>")}</strong> also came through. These overlap with narcissism but aren't the same thing, and plenty of people struggle with them without being narcissistic.</p>` : ""}
       </div>
       ${reasonNote}
-      <div class="radar-box">
-        <div>${radar(sc, fAvg)}${fAvg ? `<div class="legend"><span><i style="background:var(--accent)"></i>You</span><span><i style="background:var(--peach)"></i>People who know you</span></div>` : ""}</div>
-        <div class="summary-card">
-          <h3>How to read this</h3>
-          <p>Each score from 0 to 100 shows how strongly a trait came through <em>in your answers here</em>, combining eight different kinds of questions. It isn't a percentile, and it hasn't been validated in a clinical study.</p>
-          <p style="margin:0;display:flex;gap:6px;flex-wrap:wrap"><span class="band-tag band-0">Faint</span><span class="band-tag band-1">Some</span><span class="band-tag band-2">Noticeable</span><span class="band-tag band-3">Strong</span></p>
-          <p style="margin-top:14px;margin-bottom:0">You read ${r.readingCorrect} of ${r.readingN} emotional situations the way most people do${r.quickInfo.grandN ? `, and picked ${r.quickInfo.grandMe} of ${r.quickInfo.grandN} “big” words to describe yourself in the quick-reaction round` : ""}.</p>
-        </div>
-      </div>
 
       <h2>Trait by trait</h2>
-      <p class="intro">Open “What this isn't, and what to try” on any trait for context and small things to practice.</p>
+      <p class="intro">Each score from 0 to 100 shows how strongly a trait came through in your answers here. It isn't a percentile, and it hasn't been validated in a clinical study.</p>
+      <ul class="scale-key"><li><b>Faint</b> 0 to 21</li><li><b>Some</b> 22 to 41</li><li><b>Noticeable</b> 42 to 59</li><li><b>Strong</b> 60 to 100</li></ul>
+      ${fAvg ? `<div class="legend"><span><i class="pin-key"></i>You</span><span><i class="pin-key other"></i>People who know you</span></div>` : ""}
       <div class="dim-list">${dimCards}</div>
+      <p class="intro" style="margin-top:20px">You read ${r.readingCorrect} of ${r.readingN} emotional situations the way most people do${r.quickInfo.grandN ? `, and picked ${r.quickInfo.grandMe} of ${r.quickInfo.grandN} “big” words to describe yourself in the quick-reaction round` : ""}.</p>
 
-      <h2>How honest were the answers?</h2>
-      <p class="intro">No test can stop someone from bending the truth, but these checks show how far your results can be trusted.</p>
-      <div class="validity">${r.flags.map((f) => `<div class="flag ${f.warn ? "warn" : "ok"}"><div class="fi">${f.warn ? "!" : "✓"}</div><div><h4>${esc(f.title)}</h4><p>${esc(f.text)}</p></div></div>`).join("")}</div>
+      <h2>How far to trust these answers</h2>
+      <p class="intro">No test can stop someone from bending the truth. These checks show how far your results can be trusted.</p>
+      <div class="flags">${r.flags.map((f) => `<div class="flag ${f.warn ? "warn" : "ok"}"><div class="fi" aria-hidden="true"></div><div><h4>${esc(f.title)}</h4><p>${esc(f.text)}</p></div></div>`).join("")}</div>
 
       ${notable}
 
-      <h2 id="others">The hardest part to fake: other people</h2>
-      <p class="intro">The most reliable check is comparing your answers with how people who know you see you. Send this private link to someone you trust: a partner, friend, sibling, or coworker. They answer 16 short questions about you and get a code to send back. Nothing is uploaded anywhere.</p>
-      <div class="summary-card no-print">
+      <h2 id="others">How someone who knows you sees you</h2>
+      <p class="intro">Send this private link to someone you trust. They answer 16 short questions about you and get a code to send back. Nothing is uploaded anywhere.</p>
+      <div class="panel no-print">
         <div class="field"><label for="fname">Your first name, or what they call you</label><input id="fname" maxlength="30" placeholder="e.g. Alex" autocomplete="given-name"></div>
-        <div class="row"><button class="btn small" data-invite>Create invite link</button><button class="btn small ghost" data-share hidden>Share…</button></div>
-        <div class="code-out" data-link hidden style="margin-top:14px"></div>
-        <hr style="border:0;border-top:1px solid var(--line);margin:24px 0">
-        <div class="field"><label for="fcode">Got a code back? Paste it here</label><textarea id="fcode" placeholder="HM1-…"></textarea><div class="err" data-err role="alert"></div></div>
+        <div class="row"><button class="btn small" data-invite>Create invite link</button><button class="btn small ghost" data-share hidden>Share</button></div>
+        <div class="code-out" data-link hidden></div>
+        <hr>
+        <div class="field"><label for="fcode">Got a code back? Paste it here</label><textarea id="fcode" placeholder="HM1-"></textarea><div class="err" data-err role="alert"></div></div>
         <div class="row"><button class="btn small" data-addcode>Add their view</button>${friends.length ? `<button class="btn small ghost" data-clearcodes>Remove all views</button>` : ""}</div>
         ${friendList}
       </div>
 
       <h2>Where to go from here</h2>
-      <div class="cards" style="margin-top:20px">
-        <div class="card"><h3>Talk to a professional</h3><p>A licensed therapist can tell you far more than any website. Look for affordable options through <a href="https://openpathcollective.org/" target="_blank" rel="noopener">Open Path Collective</a> or the <a href="https://www.psychologytoday.com/us/therapists" target="_blank" rel="noopener">Psychology Today directory</a>.</p></div>
-        <div class="card"><h3>Understand the words</h3><p>Read our plain-language <a href="../learn/">guide</a> to what narcissism, manipulation, and control really mean, and what they don't.</p></div>
-        <div class="card"><h3>If you're hurting</h3><p>Being labeled can hurt badly. If you're in crisis, call or text <strong>988</strong> in the US, or find a line in your country at <a href="https://findahelpline.com/" target="_blank" rel="noopener">findahelpline.com</a>.</p></div>
-      </div>
+      <ul class="rows">
+        <li><h3>Talk to a professional</h3><p>A licensed therapist can tell you far more than any website. Affordable options include <a href="https://openpathcollective.org/" target="_blank" rel="noopener">Open Path Collective</a> and the <a href="https://www.psychologytoday.com/us/therapists" target="_blank" rel="noopener">Psychology Today directory</a>.</p></li>
+        <li><h3>Understand the words</h3><p>The <a href="../learn/">guide</a> covers what narcissism, manipulation, and control really mean, and what they don't.</p></li>
+        <li><h3>If you're hurting</h3><p>Being labeled can hurt badly. If you're in crisis, call or text <strong>988</strong> in the US, or find a line in your country at <a href="https://findahelpline.com/" target="_blank" rel="noopener">findahelpline.com</a>.</p></li>
+      </ul>
 
-      <div class="row no-print" style="justify-content:center;margin-top:48px">
-        <button class="btn ghost small" data-print>Save as PDF / print</button>
+      <div class="row no-print result-actions">
+        <button class="btn ghost small" data-print>Save as PDF or print</button>
         <button class="btn ghost small" data-copy>Copy summary</button>
         <button class="btn ghost small" data-restart>Retake the test</button>
       </div>
-      <p style="text-align:center;color:var(--muted);font-size:.88rem;margin-top:28px">This tool is for self-understanding and education only. It is not a medical or psychological assessment and cannot diagnose Narcissistic Personality Disorder or any other condition.</p>
+      <p class="fine after-note">For self-understanding and education only. Not a medical or psychological assessment, and it can't diagnose Narcissistic Personality Disorder or any other condition.</p>
     </div>`);
 
     setTimeout(() => node.querySelectorAll(".pin").forEach((p) => { p.style.left = `${p.dataset.left}%`; }), 350);

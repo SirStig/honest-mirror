@@ -36,6 +36,10 @@ jobs:
             --exclude '.github' \
             --exclude 'tools' \
             --exclude 'README.md' \
+            --exclude 'PRODUCT.md' \
+            --exclude 'DESIGN.md' \
+            --exclude '.impeccable' \
+            --exclude '.playwright-mcp' \
             ./ _site/
 
       - name: Upload site
